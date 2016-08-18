@@ -232,8 +232,10 @@ score = 0
 obstacle_showing = False
 pause_time = 0
 start_timer = False
-obs = obstacle(random.randint(1,2))
-obs_type = random.randint(1, 2)
+number = 0
+obs = obstacle(number)
+obs_type = 0
+keypressedfor = 0
 
 #testings
 #ob = obstacle(2)
@@ -247,6 +249,21 @@ while not done:
             done = True
 
     # --- Game logic should go here
+    if event.type == pygame.KEYDOWN:
+        keypressedfor += 1
+        if event.key == pygame.K_SEMICOLON and number == 2 and obs_type == 1 and keypressedfor == 1:
+            earnedscore = True
+            number = 0
+            obs_type = 0
+            pause_time = 200
+        if event.key == pygame.K_EQUALS and number == 2 and obs_type == 2 and keypressedfor == 1:
+            earnedscore = True
+            number = 0
+            obs_type = 0
+            pause_time = 200
+
+    if event.type == pygame.KEYUP:
+        keypressedfor = 0
 
     # --- Screen-clearing code goes here
 
@@ -261,6 +278,7 @@ while not done:
 
     if earnedscore:
         score += 1
+        print(score)
         earnedscore = False
         sk = random.choice(SKIN_COLOURS)
         ha2 = random.choice(HAIR_COLOURS)
@@ -278,11 +296,12 @@ while not done:
         elif walking == 2:
             walking = 1
 
-    if walkingcount % 1000 == 0:
+    if walkingcount % 400 == 0:
         obstacle_showing = True
 
     if obstacle_showing:
-        obs = obstacle(random.randint(1,2))
+        number = random.randint(1,2)
+        obs = obstacle(number)
         obs_type = random.randint(1, 2)
         obstacle_showing = False
         start_timer = True
