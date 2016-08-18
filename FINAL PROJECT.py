@@ -5,17 +5,19 @@ import random
 import math
 
 # Define some colors
-BLACK = (0, 0, 0)
+BLACK =(0, 0, 0)
+GRAY = (40, 35, 35)
 WHITE = (255, 255, 255)
 PURPLE = (113, 70, 255)
 GREEN = (120, 213, 132)
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
-YELLOW = (255,255,0)
+YELLOW = (255, 255, 0)
 PINK = (255, 138, 201)
-BROWN = (108, 44, 1)
+BROWN = (139, 69, 19)
 ORANGE = (253, 113, 6)
-SKY_BLUE = (186, 237, 255)
+SKY_BLUE = (135, 206, 235)
+
 #skin colours
 SKIN1_RED = (255, 204, 153)
 SKIN1_YELLOW = (255, 255, 153)
@@ -36,6 +38,95 @@ size = (1000, 600)
 screen = pygame.display.set_mode(size)
 
 pygame.display.set_caption("Coders!!")
+
+
+
+
+
+
+#new code
+class Tree():
+
+    def __init__ (self, x1, x2, x3, y1, y2):
+        self.x1 = x1
+        self.x2 = x2
+        self.x3 = x3
+        self.y1 = y1
+        self.y2 = y2
+
+    #Draws an individual tree
+    def draw (self):
+        pygame.draw.rect (screen, BROWN, (self.x1 + 80, self.y1, 40, 60)) #Log
+        pygame.draw.polygon (screen, GREEN, ([self.x1, self.y1],[self.x3, self.y1],[self.x2, self.y2] ))
+        pygame.draw.polygon (screen, GREEN, ([self.x1, self.y1-100], [self.x3, self.y1-100],[self.x2, self.y1-230]))
+        pygame.draw.polygon (screen, GREEN, ([self.x1, self.y1-200], [self.x3, self.y1-200], [self.x2, self.y1-330]))
+        #pygame.draw.rect (screen, YELLOW, (self.x1, 525, 20, 10)) #Yellow Lines
+
+    #Makes that individual tree move
+    def move(self):
+        self.x1 -= 5
+        self.x2 -= 5
+        self.x3 -= 5
+
+class Lines():
+
+    def __init__ (self, x):
+        self.x = x
+
+    def draw (self):
+        pygame.draw.rect (screen, YELLOW, (self.x, 525, 20, 10))
+
+    def move (self):
+        self.x -= 5
+
+
+class Background():
+    def __init__ (self, existing_objs):
+        #A list of trees is being made here and you will need to add a tree to this list every time you want to draw a new one
+        self.objects = existing_objs
+        
+    def add_trees(self):
+        self.objects.append (Tree (1000, 1100, 1200, 410, 280))
+        #This method will add a tree to your list, you will want to do this to get the moving effect
+        #Remember that each new tree begins on the very right and they all look the same
+        #remove return None when done writing this method, it's a temporary command
+        
+    def draw_objects(self):
+        for i in self.objects:
+            i.draw ()    
+        #Look through each tree object in your list (self.trees) and draw it 
+        
+
+    def move_objects(self):
+        for i in self.objects:
+            i.move ()
+        #Traverse through each tree object in your list (self.trees) and shift it horizontally (look through the Tree methods)
+
+    def add_yellow_line(self):
+        self.objects.append (Lines (1000))
+
+
+y_coor = 525
+
+exp = 0
+ex = 0
+
+trees = []
+for i in range (0, 3):
+    trees.append(Tree(300+300*i, 400+300*i, 500+300*i, 410, 280))
+tree = Background(trees)
+lines = []
+for i in range(0,11):
+    lines.append(Lines(100*i))
+yellow_lines = Background(lines)
+
+
+
+
+
+
+
+
     
 
 #A class for the coders!!
@@ -256,7 +347,12 @@ while not done:
             number = 0
             obs_type = 0
             pause_time = 200
-        if event.key == pygame.K_EQUALS and number == 2 and obs_type == 2 and keypressedfor == 1:
+        elif event.key == pygame.K_EQUALS and number == 2 and obs_type == 2 and keypressedfor == 1:
+            earnedscore = True
+            number = 0
+            obs_type = 0
+            pause_time = 200
+        elif number == 1 and int(pygame.key.name(event.key)) == len(girl_coders)  and keypressedfor == 1:
             earnedscore = True
             number = 0
             obs_type = 0
@@ -273,6 +369,28 @@ while not done:
     # If you want a background image, replace this clear with blit'ing the
     # background image.
     screen.fill(SKY_BLUE)
+    pygame.draw.rect(screen, GRAY, [0, 450, 1000, 150])
+
+    if exp != 60:
+        exp = exp +1
+    else:
+        tree.add_trees()
+        exp = 0
+
+        
+    tree.draw_objects()
+    tree.move_objects()
+
+    if ex != 20:
+        ex = ex +1
+    else:
+        yellow_lines.add_yellow_line()
+        ex = 0
+    
+    yellow_lines.draw_objects()
+    yellow_lines.move_objects()
+
+    
 
     # --- Drawing code should go here
 
