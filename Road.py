@@ -72,21 +72,7 @@ done = False
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
 
-x_coor = 0
 y_coor = 525
-x1 = 66
-x2 = 166
-x3 = 266
-y1 = 430
-y2 = 365
-y3 = 170
-x22 = 235
-x33 = 363
-y11 = 190
-y21 = 300
-y31 = 170
-y32 = 40
-y22 = 235
 
 exp = 0
 tree = Background()
@@ -115,12 +101,11 @@ while not done:
     #pygame.draw.polygon(screen, GREEN, [116, 170], [166, 235], [216, 170])
     
     #Yellow Dashes
-
+    x_coor = 0
+    
     for i in range(0, 10):
         pygame.draw.rect(screen, YELLOW, (x_coor, y_coor, 20, 10))
         x_coor = x_coor + 100
-
-
     
     #Trees
     if exp != 60:
