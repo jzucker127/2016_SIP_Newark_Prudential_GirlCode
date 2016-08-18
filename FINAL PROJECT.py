@@ -129,9 +129,84 @@ class coders():
             #arms
             pygame.draw.line(screen, self.skin_col, (self.xpos - 7, 478), (self.xpos - 10, 505), 5)
             pygame.draw.line(screen, self.skin_col, (self.xpos + 7, 478), (self.xpos + 20, 505), 5)
+
+#a class for the obstacles
+class obstacle():
+    
+    def __init__(self, num):
+        self.num = num
+        self.col = random.choice(SKIN_COLOURS)
+
+    def show(self, obs_type):
+        if self.num == 1:
+            pygame.draw.circle(screen, WHITE, (600, 350), 40)
+            pygame.draw.circle(screen, WHITE, (650, 350), 40)
+            pygame.draw.circle(screen, WHITE, (700, 350), 40)
+            pygame.draw.circle(screen, WHITE, (680, 405), 10)
+            pygame.draw.circle(screen, WHITE, (705, 430), 10)
             
-        
-        
+            pygame.font.init()
+            myfont = pygame.font.SysFont(None,30)
+            insult = myfont.render("Girls can't code", 1, BLACK)
+            screen.blit(insult, (570, 340))
+            pygame.display.flip
+            
+            pygame.draw.line(screen, self.col, (790, 448), (740, 410), 10)
+            pygame.draw.line(screen, self.col, (810, 448), (860, 410), 10)
+            if obs_type == 1:
+                pygame.draw.circle(screen, ORANGE, (800, 470), 40)
+                pygame.draw.rect(screen, BLUE, (763, 485, 73, 25))
+                pygame.draw.line(screen, BLUE, (770, 500), (743, 533), 15)
+                pygame.draw.line(screen, BLUE, (825, 500), (856, 533), 15)
+            elif obs_type == 2:
+                pygame.draw.circle(screen, BLACK, (800, 340), 15)
+                pygame.draw.circle(screen, BLACK, (780, 350), 15)
+                pygame.draw.circle(screen, BLACK, (820, 350), 15)
+                pygame.draw.line(screen, self.col, (770, 500), (753, 533), 15)
+                pygame.draw.line(screen, self.col, (825, 500), (846, 533), 15)
+                pygame.draw.circle(screen, PINK, (800, 470), 40)
+                pygame.draw.polygon(screen, PINK, ((763, 435), (836, 435), (743, 510), (856, 510) ))
+                
+            pygame.draw.circle(screen, BLACK, (800, 390), 45)
+            pygame.draw.circle(screen, self.col, (800, 400), 40)
+            pygame.draw.line(screen, BLACK, (795, 390), (780, 375), 7)
+            pygame.draw.line(screen, BLACK, (805, 390), (820, 375), 7)
+            pygame.draw.circle(screen, BLACK, (790, 400), 5)
+            pygame.draw.circle(screen, BLACK, (810, 400), 5)
+            pygame.draw.rect(screen, BLACK, (765, 360, 65, 10))
+            pygame.draw.arc(screen, RED, (790, 410, 20, 20), 0/180 * math.pi, 180/180 * math.pi, 1 )
+        elif self.num == 2:
+            if obs_type == 1:
+                pygame.draw.ellipse(screen, WHITE, (545, 320, 170, 75))
+                pygame.font.init()
+                font2 = pygame.font.SysFont(None,40)
+                error = font2.render("var x = 7", 1, BLACK)
+                screen.blit(error, (570, 340))
+                pygame.display.flip
+
+                pygame.draw.ellipse(screen, RED, (545, 270, 170, 65))
+                pygame.font.init()
+                font2 = pygame.font.SysFont(None,30)
+                error = font2.render("SyntaxError!!", 1, WHITE)
+                screen.blit(error, (570, 295))
+                pygame.display.flip
+                
+            elif obs_type == 2:
+                pygame.draw.ellipse(screen, WHITE, (545, 320, 170, 75))
+                pygame.font.init()
+                font2 = pygame.font.SysFont(None,40)
+                error = font2.render("if (x = 1){ }", 1, BLACK)
+                screen.blit(error, (565, 340))
+                pygame.display.flip
+
+                pygame.draw.ellipse(screen, RED, (545, 270, 170, 65))
+                pygame.font.init()
+                font2 = pygame.font.SysFont(None,30)
+                error = font2.render("SyntaxError!!", 1, WHITE)
+                screen.blit(error, (570, 295))
+                pygame.display.flip 
+            
+            
 
 # Loop until the user clicks the close button.
 done = False
@@ -154,6 +229,14 @@ walking = 1
 walkingcount = 1
 earnedscore = False
 score = 0
+obstacle_showing = False
+pause_time = 0
+start_timer = False
+obs = obstacle(random.randint(1,2))
+obs_type = random.randint(1, 2)
+
+#testings
+#ob = obstacle(2)
 
 
 # -------- Main Program Loop -----------
@@ -195,10 +278,26 @@ while not done:
         elif walking == 2:
             walking = 1
 
+    if walkingcount % 1000 == 0:
+        obstacle_showing = True
+
+    if obstacle_showing:
+        obs = obstacle(random.randint(1,2))
+        obs_type = random.randint(1, 2)
+        obstacle_showing = False
+        start_timer = True
+
+    if start_timer:
+        pause_time += 1
+        obs.show(obs_type)
+        if pause_time >= 200:
+            start_timer = False
+            pause_time = 0
+
 
     walkingcount += 1
 
-
+    #ob.show(2)
     # End Snow
     # --- Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
