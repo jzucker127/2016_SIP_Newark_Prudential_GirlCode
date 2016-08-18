@@ -205,11 +205,7 @@ class obstacle():
                 error = font2.render("SyntaxError!!", 1, WHITE)
                 screen.blit(error, (570, 295))
                 pygame.display.flip 
-
-
-    
-            
-            
+   
 
 # Loop until the user clicks the close button.
 done = False
@@ -236,8 +232,14 @@ obstacle_showing = False
 pause_time = 0 # Decides the time in which the thing has to show
 start_timer = False
 
-obs = obstacle(random.randint(1, 2)) # This variable picks a random obstacle
-obs_type = random.randint(1, 2) # This variable picks the type of obstacle
+number = random.randint(1, 2)
+obs = 0 #obstacle(number) # This variable picks a random obstacle
+obs_type = 0 #random.randint(1, 2) # This variable picks the type of obstacle
+
+#debug_key_pressed = False
+
+debug_key_pressed = 0
+
 
 
 #testings
@@ -250,6 +252,37 @@ while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
+
+    '''if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_SEMICOLON and number == 2 and obs_type == 1:
+            if not debug_key_pressed:
+                earnedscore = True
+                debug_key_pressed = True
+                obs_type = 0
+                number = 0
+        if event.key == pygame.K_EQUALS and number == 2 and obs_type == 2:
+            if not debug_key_pressed:
+                earnedscore = True
+                debug_key_pressed = True
+                obs_type = 0
+                number = 0'''
+
+    if event.type == pygame.KEYDOWN:
+        debug_key_pressed += 1
+        if event.key == pygame.K_SEMICOLON and number == 2 and obs_type == 1 and debug_key_pressed == 1:
+            earnedscore = True
+            number = 0
+            obs_type = 0
+            pause_time = 200
+        if event.key == pygame.K_EQUALS and number == 2 and obs_type == 2 and debug_key_pressed == 1:
+            earnedscore = True
+            number = 0
+            obs_type = 0
+            pause_time = 200
+
+    if event.type == pygame.KEYUP:
+        debug_key_pressed = 0
+            
 
     # --- Game logic should go here
 
@@ -283,11 +316,12 @@ while not done:
         elif walking == 2:
             walking = 1
 
-    if walkingcount % 1000 == 0: # If the count divides perfectly
+    if walkingcount % 400 == 0: # If the count divides perfectly
         obstacle_showing = True
 
     if obstacle_showing:
-        obs = obstacle(random.randint(1, 2)) # This variable picks a random obstacle
+        number = random.randint(1, 2)
+        obs = obstacle(number)# This variable picks a random obstacle
         obs_type = random.randint(1, 2) # This variable picks the type of obstacle
         obstacle_showing = False
         start_timer = True
@@ -295,7 +329,7 @@ while not done:
     if start_timer:
         pause_time += 1
         obs.show(obs_type)
-        if pause_time >= 300:
+        if pause_time >= 200:
             start_timer = False
             pause_time = 0
 
