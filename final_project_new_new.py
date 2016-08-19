@@ -221,10 +221,12 @@ class coders():
             pygame.draw.line(screen, self.skin_col, (self.xpos - 7, 478), (self.xpos - 10, 505), 5)
             pygame.draw.line(screen, self.skin_col, (self.xpos + 7, 478), (self.xpos + 20, 505), 5)
 
+        
+
 
 # Insult List!
 
-insult_list = ["Girls can't code!", "Stay at home!", "No education!", "Don't fail!", "No STEM for girls!", "No STEM!"]
+insult_list = ["Girls can't code!", "Stay at home!", "No education!", "Better not fail!", "No STEM for girls!", "No STEM!"]
 
 #a class for the obstacles
 class obstacle():
@@ -303,7 +305,64 @@ class obstacle():
                 screen.blit(error, (570, 295))
                 pygame.display.flip
         
-            
+        # NEW OBSTACLES!
+        elif self.num == 3:
+
+            if obs_type == 1:
+                
+                pygame.draw.ellipse(screen, WHITE, (545, 295, 210, 105))
+                pygame.font.init()
+                font = pygame.font.SysFont(None,25)
+                error = font.render("var x = 5 ;", 1, BLACK)
+                screen.blit(error, (600, 315))
+                pygame.display.flip
+
+                pygame.font.init()
+                font2 = pygame.font.SysFont(None,25)
+                error = font2.render("var y = '3' ; ", 1, BLACK)
+                screen.blit(error, (600, 340))
+                pygame.display.flip
+
+                pygame.font.init()
+                font2 = pygame.font.SysFont(None,25)
+                error = font2.render("var z = x * y ; ", 1, BLACK)
+                screen.blit(error, (600, 365))
+                pygame.display.flip
+
+                pygame.draw.ellipse(screen, RED, (545, 250, 210, 65))
+                pygame.font.init()
+                font2 = pygame.font.SysFont(None,25)
+                error = font2.render("Find the line with error!", 1, WHITE)
+                screen.blit(error, (555, 275))
+                pygame.display.flip
+
+            elif obs_type == 2:
+
+                pygame.draw.ellipse(screen, WHITE, (545, 295, 210, 105))
+                pygame.font.init()
+                font = pygame.font.SysFont(None,20)
+                error = font.render("while(true) {", 1, BLACK)
+                screen.blit(error, (595, 320))
+                pygame.display.flip
+
+                pygame.font.init()
+                font2 = pygame.font.SysFont(None,20)
+                error = font2.render("  println('Hello World!');", 1, BLACK)
+                screen.blit(error, (595, 340))
+                pygame.display.flip
+
+                pygame.font.init()
+                font2 = pygame.font.SysFont(None,20)
+                error = font2.render("}", 1, BLACK)
+                screen.blit(error, (595, 360))
+                pygame.display.flip
+
+                pygame.draw.ellipse(screen, RED, (545, 250, 210, 65))
+                pygame.font.init()
+                font2 = pygame.font.SysFont(None,20)
+                error = font2.render("Would this run? 1 = yes, 2 = no", 1, WHITE)
+                screen.blit(error, (555, 275))
+                pygame.display.flip
             
 
 # Loop until the user clicks the close button.
@@ -336,8 +395,7 @@ obs_type = 0
 keypressedfor = 0
 missed = True
 
-#testings
-#ob = obstacle(2)
+
 
 
 # -------- Main Program Loop -----------
@@ -355,20 +413,35 @@ while not done:
             earnedscore = True
             number = 0
             obs_type = 0
-            pause_time = 250
+            pause_time = 350
             missed = False
         elif event.key == pygame.K_EQUALS and number == 2 and obs_type == 2 and keypressedfor == 1:
             earnedscore = True
             number = 0
             obs_type = 0
-            pause_time = 250
+            pause_time = 350
             mised = False
         elif number == 1 and pygame.key.name(event.key) == str(len(girl_coders)) and keypressedfor == 1:
             earnedscore = True
             number = 0
             obs_type = 0
-            pause_time = 250
+            pause_time = 350
             missed = False
+
+        elif number == 3 and obs_type == 1 and keypressedfor == 1 and event.key == pygame.K_2:
+            earnedscore = True
+            number = 0
+            obs_type = 0
+            pause_time = 350
+            missed = False
+
+        elif number == 3 and obs_type == 2 and keypressedfor == 1 and event.key == pygame.K_2:
+            earnedscore = True
+            number = 0
+            obs_type = 0
+            pause_time = 350
+            missed = False
+        
         elif keypressedfor == 1 and start_timer:
             score = score - 1
         
@@ -431,11 +504,11 @@ while not done:
         elif walking == 2:
             walking = 1
 
-    if walkingcount % 400 == 0:
+    if walkingcount % 550 == 0:
         obstacle_showing = True
 
     if obstacle_showing:
-        number = random.randint(1,2)
+        number = random.randint(1,3)
         obs = obstacle(number)
         obs_type = random.randint(1, 2)
         obstacle_showing = False
@@ -444,7 +517,7 @@ while not done:
     if start_timer:
         pause_time += 1
         obs.show(obs_type)
-        if pause_time >= 200:
+        if pause_time >= 350:
             start_timer = False
             pause_time = 0
             number = 0
@@ -481,7 +554,7 @@ while not done:
         pygame.display.flip
         
 
-    #ob.show(2)
+    
     # End Snow
     # --- Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
