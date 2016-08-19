@@ -1,244 +1,20 @@
 import pygame
 import random
 import math
+import sys
+import time
 
 # Define some colors
-BLACK =(0, 0, 0)
-GRAY = (40, 35, 35)
+BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
-PURPLE = (113, 70, 255)
-GREEN = (120, 213, 132)
+GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
-YELLOW = (255, 255, 0)
+YELLOW = (255,255,0)
 PINK = (255, 138, 201)
-BROWN = (139, 69, 19)
-ORANGE = (253, 113, 6)
 SKY_BLUE = (135, 206, 235)
 
-#skin colours
-SKIN1_RED = (255, 204, 153)
-SKIN1_YELLOW = (255, 255, 153)
-SKIN2 = (255, 212, 124)
-SKIN3 = (255, 187, 118)
-SKIN4 = (226, 166, 106)
-SKIN5 = (153, 76, 0)
-SKIN6 = (102, 51, 0)
-SKIN7 = (51, 25, 0)
-
-SKIN_COLOURS = [SKIN1_RED, SKIN1_YELLOW, SKIN2, SKIN3, SKIN4, SKIN5, SKIN6, SKIN7]
-HAIR_COLOURS = [BLACK, YELLOW, BROWN, ORANGE]
-
 pygame.init()
-
-pygame.display.set_caption("Coders!!")
-    
-
-#A class for the coders!!
-class coders():
-    def __init__(self, skin_col, interest, hair_type, hair_col, xpos):
-        self.skin_col = skin_col
-        self.interest = interest
-        self.hair_col = hair_col
-        self.hair_type = hair_type
-        self.xpos = xpos
-        self.pants = skin_col
-
-    def draw(self, pos):
-        self.pos = pos
-        #hair ponytails
-        pygame.draw.circle(screen, self.hair_col, (self.xpos - 3, 440), 33)
-        pygame.draw.rect(screen, self.hair_col, (self.xpos - 36, 440, 66, 55))
-        if self.hair_type == 2:
-            pygame.draw.circle(screen, self.hair_col, (self.xpos - 13, 410), 10)
-            pygame.draw.circle(screen, self.hair_col, (self.xpos + 2, 410), 10)
-
-            pygame.draw.circle(screen, self.hair_col, (self.xpos - 23, 418), 10)
-            pygame.draw.circle(screen, self.hair_col, (self.xpos + 15, 418), 10)
-
-            
-            pygame.draw.circle(screen, self.hair_col, (self.xpos - 33, 428), 10)
-            pygame.draw.circle(screen, self.hair_col, (self.xpos + 25, 428), 10)
-
-            pygame.draw.circle(screen, self.hair_col, (self.xpos - 13, 410), 10)
-            pygame.draw.circle(screen, self.hair_col, (self.xpos + 2, 410), 10)
-
-            pygame.draw.circle(screen, self.hair_col, (self.xpos - 23, 418), 10)
-            pygame.draw.circle(screen, self.hair_col, (self.xpos + 15, 418), 10)
-
-            pygame.draw.circle(screen, self.hair_col, (self.xpos - 36, 440), 10)
-            pygame.draw.circle(screen, self.hair_col, (self.xpos - 36, 455), 10)
-            pygame.draw.circle(screen, self.hair_col, (self.xpos - 36, 470), 10)
-            pygame.draw.circle(screen, self.hair_col, (self.xpos - 36, 485), 10)
-
-            pygame.draw.circle(screen, self.hair_col, (self.xpos + 30, 440), 10)
-            pygame.draw.circle(screen, self.hair_col, (self.xpos + 30, 455), 10)
-            pygame.draw.circle(screen, self.hair_col, (self.xpos + 30, 470), 10)
-            pygame.draw.circle(screen, self.hair_col, (self.xpos + 30, 485), 10)
-
-            pygame.draw.circle(screen, self.hair_col, (self.xpos - 23, 490), 9)
-            pygame.draw.circle(screen, self.hair_col, (self.xpos - 14, 490), 9)
-            pygame.draw.circle(screen, self.hair_col, (self.xpos - 5, 490), 9)
-            pygame.draw.circle(screen, self.hair_col, (self.xpos + 4, 490), 9)
-            pygame.draw.circle(screen, self.hair_col, (self.xpos + 14, 490), 9)
-            pygame.draw.circle(screen, self.hair_col, (self.xpos + 23, 490), 9)
-        #face
-        pygame.draw.circle(screen, self.skin_col, (self.xpos, 450), 30)
-        #eyes
-        pygame.draw.circle(screen, BLACK, (self.xpos , 440), 5)
-        pygame.draw.circle(screen, BLACK, (self.xpos + 15, 440), 4)
-        #hair bangs
-        pygame.draw.rect(screen, self.hair_col, (self.xpos - 20, 420, 40, 10))    
-        #smile
-        #pygame.draw.line(screen, RED, (self.xpos + 1, 453), (self.xpos + 16, 453), 3) # This is the old smile
-        #pygame.draw.circle(screen, RED, (self.xpos + 11, 458), 6)
-        #pygame.draw.circle(screen, RED, (self.xpos + 5, 457), 3)
-        pygame.draw.arc(screen, RED, (self.xpos, 440, 20, 20), 180/180 * math.pi, 360/180 * math.pi, 1 )
-
-
-        if self.interest == 1:
-            #dress
-            pygame.draw.rect(screen, PINK, (self.xpos - 5, 480, 10, 41))
-            pygame.draw.polygon(screen, PINK, [(self.xpos - 5, 500), (self.xpos - 5, 520), (self.xpos - 15, 520), (self.xpos - 5, 500)])
-            pygame.draw.polygon(screen, PINK, [(self.xpos + 5, 500), (self.xpos + 5, 520), (self.xpos + 15, 520), (self.xpos + 5, 500)])
-        elif self.interest == 2:
-            pygame.draw.rect(screen, PURPLE, (self.xpos - 8, 480, 16, 30))
-            pygame.draw.rect(screen, BLUE, (self.xpos - 8, 510, 16, 10))
-            self.pants = BLUE
-        elif self.interest == 3:
-            pygame.draw.rect(screen, BLACK, (self.xpos - 8, 480, 16, 20))
-            pygame.draw.rect(screen, self.skin_col, (self.xpos - 8, 500, 16, 10))
-            pygame.draw.rect(screen, BLACK, (self.xpos - 8, 510, 16, 10))
-            self.pants = BLACK
-        
-        if self.pos == 1:
-            #legs
-            pygame.draw.line(screen, self.pants, (self.xpos - 6, 520), (self.xpos - 6, 550), 5)
-            pygame.draw.line(screen, self.pants, (self.xpos + 6, 520), (self.xpos + 2, 550), 5)
-            #arms
-            pygame.draw.line(screen, self.skin_col, (self.xpos - 7, 478), (self.xpos - 20, 505), 5)
-            pygame.draw.line(screen, self.skin_col, (self.xpos + 7, 478), (self.xpos + 10, 505), 5)
-        elif self.pos == 2:
-            #legs
-            pygame.draw.line(screen, self.pants, (self.xpos - 6, 520), (self.xpos - 10, 550), 5)
-            pygame.draw.line(screen, self.pants, (self.xpos + 6, 520), (self.xpos + 6, 550), 5)
-            #arms
-            pygame.draw.line(screen, self.skin_col, (self.xpos - 7, 478), (self.xpos - 10, 505), 5)
-            pygame.draw.line(screen, self.skin_col, (self.xpos + 7, 478), (self.xpos + 20, 505), 5)
-
-#a class for the obstacles
-class obstacle():
-    
-    def __init__(self, num):
-        self.num = num
-        self.col = random.choice(SKIN_COLOURS)
-
-    def show(self, obs_type):
-        if self.num == 1:
-            pygame.draw.circle(screen, WHITE, (600, 350), 40)
-            pygame.draw.circle(screen, WHITE, (650, 350), 40)
-            pygame.draw.circle(screen, WHITE, (700, 350), 40)
-            pygame.draw.circle(screen, WHITE, (680, 405), 10)
-            pygame.draw.circle(screen, WHITE, (705, 430), 10)
-            
-            pygame.font.init()
-            myfont = pygame.font.SysFont(None,30)                   # This applies for the girl and the guy
-            insult = myfont.render("Girls can't code", 1, BLACK)
-            screen.blit(insult, (570, 340))
-            pygame.display.flip
-            
-            pygame.draw.line(screen, self.col, (790, 448), (740, 410), 10)
-            pygame.draw.line(screen, self.col, (810, 448), (860, 410), 10)
-            if obs_type == 1:
-                pygame.draw.circle(screen, ORANGE, (800, 470), 40)
-                pygame.draw.rect(screen, BLUE, (763, 485, 73, 25))          # Code for the guy
-                pygame.draw.line(screen, BLUE, (770, 500), (743, 533), 15)
-                pygame.draw.line(screen, BLUE, (825, 500), (856, 533), 15)
-            elif obs_type == 2:
-                pygame.draw.circle(screen, BLACK, (800, 340), 15)
-                pygame.draw.circle(screen, BLACK, (780, 350), 15)
-                pygame.draw.circle(screen, BLACK, (820, 350), 15)
-                pygame.draw.line(screen, self.col, (770, 500), (753, 533), 15) # Code for the girl
-                pygame.draw.line(screen, self.col, (825, 500), (846, 533), 15)
-                pygame.draw.circle(screen, PINK, (800, 470), 40)
-                pygame.draw.polygon(screen, PINK, ((763, 435), (836, 435), (743, 510), (856, 510) ))
-                
-            pygame.draw.circle(screen, BLACK, (800, 390), 45)
-            pygame.draw.circle(screen, self.col, (800, 400), 40)
-            pygame.draw.line(screen, BLACK, (795, 390), (780, 375), 7)
-            pygame.draw.line(screen, BLACK, (805, 390), (820, 375), 7)  # These eyes apply for both the girl and the guy
-            pygame.draw.circle(screen, BLACK, (790, 400), 5)
-            pygame.draw.circle(screen, BLACK, (810, 400), 5)
-            pygame.draw.rect(screen, BLACK, (765, 360, 65, 10))
-            pygame.draw.arc(screen, RED, (790, 410, 20, 20), 0/180 * math.pi, 180/180 * math.pi, 1 )
-        elif self.num == 2:                                                 # If the obstacle is an error
-            if obs_type == 1:
-                pygame.draw.ellipse(screen, WHITE, (545, 320, 170, 75))
-                pygame.font.init() # You have to initialize this if you want to write text
-                font2 = pygame.font.SysFont(None,40) # You make a font with the size of the text
-                error = font2.render("var x = 7", 1, BLACK)     # This is what the text is supposed to say; the variable for the text itself
-                screen.blit(error, (570, 340))              # This is to put it on the screen
-                pygame.display.flip                 # This is to display it on the screen
-
-                pygame.draw.ellipse(screen, RED, (545, 270, 170, 65))
-                pygame.font.init()
-                font2 = pygame.font.SysFont(None,30)
-                error = font2.render("SyntaxError!!", 1, WHITE)
-                screen.blit(error, (570, 295))
-                pygame.display.flip
-                
-            elif obs_type == 2:
-                pygame.draw.ellipse(screen, WHITE, (545, 320, 170, 75))
-                pygame.font.init()
-                font2 = pygame.font.SysFont(None,40)
-                error = font2.render("if (x = 1){ }", 1, BLACK)
-                screen.blit(error, (565, 340))
-                pygame.display.flip
-
-                pygame.draw.ellipse(screen, RED, (545, 270, 170, 65))
-                pygame.font.init()
-                font2 = pygame.font.SysFont(None,30)
-                error = font2.render("SyntaxError!!", 1, WHITE)
-                screen.blit(error, (570, 295))
-                pygame.display.flip 
-
-
-    
-            
-            
-
-# Loop until the user clicks the close button.
-done = False
-
-# Used to manage how fast the screen updates
-clock = pygame.time.Clock()
-
-#starter girl
-skin = random.choice(SKIN_COLOURS)
-ha = random.choice(HAIR_COLOURS)
-ht = random.randint(1, 2)
-inte = random.randint(1, 3)
-girl = coders(skin, inte, ht, ha, 500)
-
-#girl coders
-girl_coders = [girl]
-
-#variables
-walking = 1
-walkingcount = 1
-earnedscore = False
-score = 0
-obstacle_showing = False
-pause_time = 0 # Decides the time in which the thing has to show
-start_timer = False
-
-obs = obstacle(random.randint(1, 2)) # This variable picks a random obstacle
-obs_type = random.randint(1, 2) # This variable picks the type of obstacle
-
-
-#testings
-#ob = obstacle(1)
-
 
 class Tree():
 
@@ -250,62 +26,47 @@ class Tree():
         self.y2 = y2
 
     #Draws an individual tree
-    def draw (self):
-        pygame.draw.rect (screen, BROWN, (self.x1 + 80, self.y1, 40, 60)) #Log
+    def draw (self):   
         pygame.draw.polygon (screen, GREEN, ([self.x1, self.y1],[self.x3, self.y1],[self.x2, self.y2] ))
         pygame.draw.polygon (screen, GREEN, ([self.x1, self.y1-100], [self.x3, self.y1-100],[self.x2, self.y1-230]))
         pygame.draw.polygon (screen, GREEN, ([self.x1, self.y1-200], [self.x3, self.y1-200], [self.x2, self.y1-330]))
-        #pygame.draw.rect (screen, YELLOW, (self.x1, 525, 20, 10)) #Yellow Lines
 
     #Makes that individual tree move
     def move(self):
+        
         self.x1 -= 5
         self.x2 -= 5
         self.x3 -= 5
 
-class Lines():
-
-    def __init__ (self, x):
-        self.x = x
-
-    def draw (self):
-        pygame.draw.rect (screen, YELLOW, (self.x, 525, 20, 10))
-
-    def move (self):
-        self.x -= 5
-
 
 class Background():
-    def __init__ (self, existing_objs):
+    def __init__ (self):
         #A list of trees is being made here and you will need to add a tree to this list every time you want to draw a new one
-        self.objects = existing_objs
+        self.trees = []
+        self.add_trees()
         
     def add_trees(self):
-        self.objects.append (Tree (1000, 1100, 1200, 410, 280))
+        self.trees.append ( Tree ( 1000, 1100, 1200, 410, 280))
         #This method will add a tree to your list, you will want to do this to get the moving effect
         #Remember that each new tree begins on the very right and they all look the same
         #remove return None when done writing this method, it's a temporary command
         
-    def draw_objects(self):
-        for i in self.objects:
+
+    def draw_trees(self):
+        for i in self.trees:
             i.draw ()    
         #Look through each tree object in your list (self.trees) and draw it 
         
 
-    def move_objects(self):
-        for i in self.objects:
+    def move_trees(self):
+        for i in self.trees:
             i.move ()
         #Traverse through each tree object in your list (self.trees) and shift it horizontally (look through the Tree methods)
-
-    def add_yellow_line(self):
-        self.objects.append (Lines (1000))
-
-    
+        
+        
 # Set the width and height of the screen [width, height]
 size = (1000, 600)
 screen = pygame.display.set_mode(size)
-
-
 
 # Loop until the user clicks the close button.
 done = False
@@ -316,23 +77,24 @@ clock = pygame.time.Clock()
 y_coor = 525
 
 exp = 0
-ex = 0
+tree = Background()
 
-trees = []
-for i in range (0, 3):
-    trees.append(Tree(300+300*i, 400+300*i, 500+300*i, 410, 280))
-tree = Background(trees)
-lines = []
-for i in range(0,11):
-    lines.append(Lines(100*i))
-yellow_lines = Background(lines)
+
+pygame.font.init()
+font = pygame.font.SysFont("vgafix.fon", 25)
+message1 = font.render ("Hey", 1, WHITE)
+screen.blit(message1, (570, 340))
+
+
+
+keypressedfor = 1
 # -------- Main Program Loop -----------
 while not done:
     # --- Main event loop
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
-    
+
         
     # --- Game logic should go here
 
@@ -343,78 +105,269 @@ while not done:
 
     # If you want a background image, replace this clear with blit'ing the
     # background image.
+    screen.fill(BLACK)
     screen.fill(SKY_BLUE)
-
     # --- Drawing code should go here
+    
+    
+    if keypressedfor == 1:
+        screen.fill(BLACK)
+        pygame.font.init()
+        font = pygame.font.SysFont("OCR A Extended", 50)
+        message1 = font.render ("NAME OF APP", 1, WHITE)
+        screen.blit(message1, (350, 250))
+    elif keypressedfor == 2:
+        screen.fill(BLACK)
+        pygame.font.init()
+        font = pygame.font.SysFont("OCR A Extended", 25)
+        message2 = font.render ("-Women make up half of the total U.S.", 1, WHITE)
+        screen.blit (message2, (100, 50))
+        message22 = font.render("college-educated workforce but only 29% of", 1, WHITE)
+        screen.blit (message22, (100, 100))
+        message23 = font.render ("the science and engineering workforce.", 1, WHITE)
+        screen.blit (message23, (100, 150))
+        message24 = font.render ("-Female scientists and engineers are,", 1, WHITE)
+        screen.blit (message24, (100, 200))
+        message25 = font.render("concentrated in different occupations than are men", 1, WHITE)
+        screen.blit (message25, (100, 250))
+        message26 = font.render ("with relatively high shares of women in ", 1, WHITE)
+        screen.blit (message26, (100, 300))
+        message27 = font.render ("the social sciences (62%) and biological,", 1, WHITE)
+        screen.blit (message27, (100,350))
+        message28 = font.render ("agricultural and environmental life sciences,",1, WHITE)
+        screen.blit (message28, (100, 400))
+        message29 = font.render ("(48%) and relatively low shares in engineering", 1, WHITE)
+        screen.blit (message29, (100, 450))
+        message30 = font.render ("(15%) and computer and mathematical sciences (25%).",1, WHITE)
+        screen.blit (message30, (100, 500))
+    elif keypressedfor == 3:
+        screen.fill(BLACK)
+        pygame.font.init()
+        font = pygame.font.SysFont("OCR A Extended", 30)
+        message31 = font.render ("Explain the goal of the game.", 1, WHITE)
+        screen.blit (message31, (100, 75))
+    elif keypressedfor == 4:
+        screen.fill(BLACK)
+        pygame.font.init()
+        font = pygame.font.SysFont("OCR A Extended", 30)
+        message4 = font.render ("Syntax Errors Are: A character or string ", 1, WHITE)
+        screen.blit (message4, (75, 50))
+        message42 = font.render("incorrectly placed in a command or instruction ", 1, WHITE)
+        screen.blit(message42, (75, 125))
+        message43 = font.render("that causes a failure in execution of code", 1, WHITE)
+        screen.blit (message43, (75, 200))
+    elif keypressedfor == 5:
+        screen.fill(BLACK)
+        pygame.font.init()
+        font = pygame.font.SysFont("OCR A Extended", 30)
+        message5 = font.render ("Don't worry though!", 1, WHITE)
+        screen.blit (message5, (75, 50))
+        message52 = font.render("Every coder experiences syntax errors!", 1, WHITE)
+        screen.blit (message52, (75, 125))
+        message53 = font.render("Don't be discouraged!!!", 1, WHITE)
+        screen.blit (message53, (75, 200))
+        message54 = font.render("The only wrong descision is to give up!", 1, WHITE)
+        screen.blit (message54, (75, 275))
+    elif keypressedfor == 6:
+        screen.fill(BLACK)
+        pygame.font.init()
+        font = pygame.font.SysFont("OCR A Extended", 30)
+        message6 = font.render ("INTRODUCTION TO JAVASCRIPT!!!", 1, WHITE)
+        screen.blit (message6, (250, 50))
+        message62 = font.render ("Here are some examples of syntax errors:", 1, WHITE)
+        screen.blit (message62, (50, 125))
+        message63 = font.render ("';' are like the '.'s in computer languages like", 1, WHITE)
+        screen.blit (message63, (50, 200))
+        message64 = font.render ("JavaScript! Think of '{}'s (after functions) as ", 1, WHITE)
+        screen.blit (message64, (50, 275))
+        message65 = font.render ("paragraphs.  They let the computers know that", 1, WHITE)
+        screen.blit (message65, (50, 350))
+        message66 = font.render ("these command belong within/to the function!", 1, WHITE)
+        screen.blit (message66, (50, 425))
+    elif keypressedfor == 7:
+        screen.fill(BLACK)
+        pygame.font.init()
+        font = pygame.font.SysFont("OCR A Extended", 30)
+        message7 = font.render ("INTRODUCTION TO JAVASCRIPT!!! PART 2", 1, WHITE)
+        screen.blit (message7, (200,50))
+        message72 = font.render ("A single line comment is added when a user", 1, WHITE)
+        screen.blit (message72, (25, 125))
+        message73 = font.render ("inserts '//' before their comments", 1, WHITE)
+        screen.blit (message73, (25, 200))
+        message74 = font.render ("A multi-line comment begins with, '/*' and ends with,", 1, WHITE)
+        screen.blit (message74, (25, 275))
+        message75 = font.render ("'*/', after the comment has been finished/completed.", 1, WHITE)
+        screen.blit (message75, (25, 350))
+        pause_time = 200
+    elif keypressedfor == 8:
+        screen.fill(BLACK)
+        pygame.font.init()
+        font = pygame.font.SysFont("OCR A Extended", 25)
+        message8 = font.render ("DEBUGGING", 1, WHITE)
+        screen.blit (message8, (480, 45))
+        message82 = font.render ("-Debugging is a crucial aspect of mastering", 1, WHITE)
+        screen.blit (message82, (35, 125))
+        message83 = font.render ("computer science/Javascript!", 1, WHITE)
+        screen.blit (message83, (35, 200))
+        message84 = font.render ("-Everyone makes mistakes!  The important thing", 1, WHITE)
+        screen.blit (message84, (35, 275))
+        message85 = font.render ("is that you learn from them!!", 1, WHITE)
+        screen.blit (message84, (35, 350))
+        pause_time = 200
+    elif keypressedfor == 9:
+        screen.fill(BLACK)
+        pygame.font.init()
+        font = pygame.font.SysFont("OCR A Extended", 30)
+        message9 = font.render ("I", 1, WHITE)
+        screen.blit (message9, (500, 300))
+        pause_time = 200
+    elif keypressedfor == 10:
+        screen.fill(BLACK)
+        pygame.font.init()
+        font = pygame.font.SysFont("OCR A Extended", 35)
+        message10 = font.render ("INTRODUCTION TO PYTHON!!!", 1, WHITE)
+        screen.blit (message10, (500, 300))
+        pause_time = 200
+    elif keypressedfor == 11:
+        screen.fill(BLACK)
+        pygame.font.init()
+        font = pygame.font.SysFont("OCR A Extended", 15)
+        message11 = font.render ("INTRODUCTION TO PYTHON!!!", 1, WHITE)
+        screen.blit (message11, (500, 300))
+        pause_time = 200
+    elif keypressedfor == 12:
+        screen.fill(BLACK)
+        pygame.font.init()
+        font = pygame.font.SysFont("OCR A Extended", 25)
+        message12 = font.render ("BEGIN THE GAME!!", 1, WHITE)
+        screen.blit (message12, (379, 50))
+        message122 = font.render ("You're now ready to take on the virtual world", 1, WHITE)
+        screen.blit (message122, (50, 100))
+        message123 = font.render ("and become a hero!  You must show women can do", 1, WHITE)
+        screen.blit (message123, (50, 150))
+        message124 = font.render ("anything!", 1, WHITE)
+        screen.blit (message124, (50, 200))
+        pause_time = 200
+    elif keypressedfor == 13:
+        screen.fill(BLACK)
+        pygame.font.init()
+        font = pygame.font.SysFont("OCR A Extended", 25)
+        message13 = font.render ("DIRECTIONS!!!", 1, WHITE)
+        screen.blit (message13, (500, 300))
+        pause_time = 200
+    elif keypressedfor == 14:
+        screen.fill(BLACK)
+        pygame.font.init()
+        font = pygame.font.SysFont("OCR A Extended", 25)
+        message14 = font.render ("INTRODUCTION TO PYTHON!!!", 1, WHITE)
+        screen.blit (message14, (500, 300))
+        pause_time = 200
+    elif keypressedfor == 15:
+        screen.fill(BLACK)
+        pygame.font.init()
+        font = pygame.font.SysFont("OCR A Extended", 30)
+        message15 = font.render ("INTRODUCTION TO PYTHON!!!", 1, WHITE)
+        screen.blit (message15, (500, 300))
+        pause_time = 200
+    elif keypressedfor == 16:
+        screen.fill(BLACK)
+        pygame.font.init()
+        font = pygame.font.SysFont("OCR A Extended", 35)
+        message16 = font.render ("INTRODUCTION TO PYTHON!!!", 1, WHITE)
+        screen.blit (message16, (500, 300))
+        pause_time = 200
+    elif keypressedfor == 17:
+        screen.fill(BLACK)
+        pygame.font.init()
+        font = pygame.font.SysFont("OCR A Extended", 40)
+        message17 = font.render ("INTRODUCTION TO PYTHON!!!", 1, WHITE)
+        screen.blit (message17, (500, 300))
+        pause_time = 200
+        
+    if event.type == pygame.KEYDOWN:
+        print(keypressedfor)
+        if event.key == pygame.K_RIGHT and keypressedfor == 1:
+            pause_time = 200
+            keypressedfor = 2
+        elif event.key == pygame.K_RIGHT and keypressedfor == 2:
+            pause_time = 200
+            keypressedfor = 3
+        elif event.key == pygame.K_RIGHT and keypressedfor == 3:
+            pause_time = 200
+            keypressedfor = 4
+        elif event.key == pygame.K_RIGHT and keypressedfor == 4:
+            pause_time = 200
+            keypressedfor = 5
+        elif event.key == pygame.K_RIGHT and keypressedfor == 5:
+            pause_time = 200
+            keypressedfor = 6
+        elif event.key == pygame.K_RIGHT and keypressedfor == 6:
+            pause_time = 200
+            keypressedfor = 7
+        elif event.key == pygame.K_RIGHT and keypressedfor == 7:
+            pause_time = 200
+            keypressedfor = 8
+        elif event.key == pygame.K_RIGHT and keypressedfor == 8:
+            pause_time = 200
+            keypressedfor = 9
+        elif event.key == pygame.K_RIGHT and keypressedfor == 9:
+            pause_time = 200
+            keypressedfor = 10
+        elif event.key == pygame.K_RIGHT and keypressedfor == 10:
+            pause_time = 200
+            keypressedfor = 11
+        elif event.key == pygame.K_RIGHT and keypressedfor == 11:
+            pause_time = 200
+            keypressedfor = 12
+        elif event.key == pygame.K_RIGHT and keypressedfor == 12:
+            pause_time = 200
+            keypressedfor = 13
+        elif event.key == pygame.K_RIGHT and keypressedfor == 13:
+            pause_time = 200
+            keypressedfor = 14
+        elif event.key == pygame.K_RIGHT and keypressedfor == 14:
+            pause_time = 200
+            keypressedfor = 15
+        elif event.key == pygame.K_RIGHT and keypressedfor == 15:
+            pause_time = 200
+            keypressedfor = 16
+        elif event.key == pygame.K_RIGHT and keypressedfor == 16:
+            pause_time = 200
+            keypressedfor = 17
+        elif event.key == pygame.K_RIGHT and keypressedfor == 17:
+            pause_time = 200
+            keypressedfor = 18
+        elif event.key == pygame.K_RIGHT and keypressedfor == 18:
+            pause_time = 200
+            keypressedfor = 19 
+        pygame.time.delay(300)
+            
+        
+
+
     #Road
-    pygame.draw.rect(screen, GRAY, [0, 450, 1000, 150])
+    #pygame.draw.rect(screen, BLACK, [0, 450, 1000, 150])
     #pygame.draw.polygon(screen, GREEN, [116, 170], [166, 235], [216, 170])
     
     #Yellow Dashes
-    '''x_coor = 0
+    #x_coor = 0
     
-    for i in range(0, 10):
-        pygame.draw.rect(screen, YELLOW, (x_coor, y_coor, 20, 10))
-        x_coor = x_coor + 100'''
+    #for i in range(0, 10):
+        #pygame.draw.rect(screen, YELLOW, (x_coor, y_coor, 20, 10))
+        #x_coor = x_coor + 100
     
     #Trees
-    if exp != 60:
-        exp = exp +1
-    else:
-        tree.add_trees()
-        exp = 0
-
+    #if exp != 60:
+        #exp = exp +1
+    #else:
+        #tree.add_trees()
+        #exp = 0
         
-    tree.draw_objects()
-    tree.move_objects()
-
-    if ex != 20:
-        ex = ex +1
-    else:
-        yellow_lines.add_yellow_line()
-        ex = 0
+    #tree.draw_trees()
+    #tree.move_trees()
     
-    yellow_lines.draw_objects()
-    yellow_lines.move_objects()
-
-    if earnedscore:
-        score += 1
-        earnedscore = False
-        sk = random.choice(SKIN_COLOURS)
-        ha2 = random.choice(HAIR_COLOURS)
-        ht2 = random.randint(1, 2)
-        inte2 = random.randint(1, 3)
-        xx = random.randint(100, 450)
-        girl_coders.append(coders(sk, inte2, ht2, ha2, xx))
-    
-    for i in range(len(girl_coders)):
-        girl_coders[i].draw(walking)
-
-    if walkingcount % 10 == 0:
-        if walking == 1:
-            walking = 2
-        elif walking == 2:
-            walking = 1
-
-    if walkingcount % 1000 == 0: # If the count divides perfectly
-        obstacle_showing = True
-
-    if obstacle_showing:
-        obs = obstacle(random.randint(1, 2)) # This variable picks a random obstacle
-        obs_type = random.randint(1, 2) # This variable picks the type of obstacle
-        obstacle_showing = False
-        start_timer = True
-
-    if start_timer:
-        pause_time += 1
-        obs.show(obs_type)
-        if pause_time >= 300:
-            start_timer = False
-            pause_time = 0
-
-
-    walkingcount += 1
-
+ 
+            
 
     # End Snow
     # --- Go ahead and update the screen with what we've drawn.
