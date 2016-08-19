@@ -317,7 +317,7 @@ skin = random.choice(SKIN_COLOURS)
 ha = random.choice(HAIR_COLOURS)
 ht = random.randint(1, 2)
 inte = random.randint(1, 3)
-girl = coders(skin, inte, ht, ha, 500)
+girl = coders(skin, inte, ht, ha, 600)
 
 #girl coders
 girl_coders = [girl]
@@ -363,12 +363,14 @@ while not done:
             obs_type = 0
             pause_time = 250
             mised = False
-        elif number == 1 and int(pygame.key.name(event.key)) == len(girl_coders) and keypressedfor == 1:
+        elif number == 1 and pygame.key.name(event.key) == str(len(girl_coders)) and keypressedfor == 1:
             earnedscore = True
             number = 0
             obs_type = 0
             pause_time = 250
             missed = False
+        elif keypressedfor == 1 and start_timer:
+            score = score - 1
         
         
 
@@ -417,7 +419,7 @@ while not done:
         ha2 = random.choice(HAIR_COLOURS)
         ht2 = random.randint(1, 2)
         inte2 = random.randint(1, 3)
-        xx = 500 - (70*len(girl_coders))
+        xx = 600 - (65*len(girl_coders))
         girl_coders.append(coders(sk, inte2, ht2, ha2, xx))
     
     for i in range(len(girl_coders)):
@@ -468,6 +470,14 @@ while not done:
         myfont6 = pygame.font.SysFont(None,75)
         text3 = myfont6.render("GAME OVER!", 1, WHITE)
         screen.blit(text3, (350, 300))
+        pygame.display.flip
+
+    if len(girl_coders) == 10:
+        screen.fill(PURPLE)
+        pygame.font.init()
+        myfont6 = pygame.font.SysFont(None,60)
+        text3 = myfont6.render("YOU WON! 10 more girls joined the movement!", 1, WHITE)
+        screen.blit(text3, (50, 300))
         pygame.display.flip
         
 
