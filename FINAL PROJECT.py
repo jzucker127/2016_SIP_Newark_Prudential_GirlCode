@@ -330,13 +330,13 @@ class obstacle():
                 pygame.draw.ellipse(screen, WHITE, (545, 295, 210, 105))
                 pygame.font.init()
                 font = pygame.font.SysFont(None,20)
-                error = font.render("while(true){", 1, BLACK)
+                error = font.render("for(i = 0; i < 10; i++){", 1, BLACK)
                 screen.blit(error, (595, 320))
                 pygame.display.flip
 
                 pygame.font.init()
                 font2 = pygame.font.SysFont(None,20)
-                error = font2.render("  println('Hello world!');", 1, BLACK)
+                error = font2.render("  println(i);", 1, BLACK)
                 screen.blit(error, (595, 340))
                 pygame.display.flip
 
